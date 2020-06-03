@@ -54,7 +54,7 @@
 
 
 
-![image-20200529142339217](E:/NoteBook/Android笔记/信息安全/信息安全生命周期.png)
+![image-20200529142339217](信息安全生命周期.png)
 
 
 
@@ -83,7 +83,7 @@
 
 ### 2.3 汇聚融合
 
-![image-20200529143445899](E:/NoteBook/Android笔记/信息安全/数据汇聚融合.png)
+![image-20200529143445899](数据汇聚融合.png)
 
 
 
@@ -127,7 +127,7 @@
 
 
 
-![image-20200529144920039](C:\Users\wangy\AppData\Roaming\Typora\typora-user-images\image-20200529144920039.png)
+![image-20200529144920039](处理方向.png)
 
 
 
@@ -135,7 +135,7 @@
 
 
 
-![image-20200529145014196](C:\Users\wangy\AppData\Roaming\Typora\typora-user-images\image-20200529145014196.png)
+![image-20200529145014196](内部制度建立.png)
 
 
 
@@ -159,21 +159,21 @@
 
 主要存在的问题：
 
-![image-20200529145535531](C:\Users\wangy\AppData\Roaming\Typora\typora-user-images\image-20200529145535531.png)
+![image-20200529145535531](侵权占比.png)
 
 
 
 ## 二、 环节问题出现分布
 
-![image-20200529145705170](C:\Users\wangy\AppData\Roaming\Typora\typora-user-images\image-20200529145705170.png)
+![image-20200529145705170](现状1.png)
 
 
 
-![image-20200529145723594](C:\Users\wangy\AppData\Roaming\Typora\typora-user-images\image-20200529145723594.png)
+![image-20200529145723594](现状2.png)
 
 
 
-![image-20200529150017765](C:\Users\wangy\AppData\Roaming\Typora\typora-user-images\image-20200529150017765.png)
+![image-20200529150017765](现状3.png)
 
 
 
