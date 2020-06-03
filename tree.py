@@ -43,4 +43,4 @@ def print_to_file(str):
 
 if __name__ == '__main__':
     
-    list_files("./Framework")
+    list_files("./")
