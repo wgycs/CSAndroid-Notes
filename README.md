@@ -4,6 +4,57 @@
 
 这里梳理了Android进阶的笔记，供奋斗在Android道路上的队友参考，我学习历程以及目标方向，其中涉及到的书籍和视频教程的笔记等内容，后续整理将逐步在此更新。
 
+# :star:技能点 
+
+-----
+
+## 语言基础 
+
+> C/ C++
+
+
+> NDK
+
+
+## 网络基础
+
+* **现任明教教主 -《*TCP*/*IP详解*卷1:协议》** 
+
+
+
+##  Android  Framework
+
+
+
+* **慕课---风语： [剖析Framework 冲击Android高级职位](https://coding.imooc.com/class/chapter/340.html#Anchor)**   (完成)
+* 
+
+
+## Android 音视频直播技术
+
+> FFmpeg
+
+
+
+> ijkplayer
+
+
+
+> webRTC
+
+## 图像处理技术
+
+
+
+
+## 人脸识别方向
+
+
+
+# :black_nib:笔记 
+
+----
+
 
 
 ##  网络基础 
@@ -44,4 +95,9 @@
 
 * [个人信息安全APP治理存在问题.md](./信息安全/个人信息安全APP治理存在问题.md)
 
+
+
+## 工程杂记
+
+* [AOSP工程同步笔记](./工程杂记/获取AOSP工程步骤.md)
 
