@@ -100,26 +100,6 @@
 
 
 
-## 
-
-
-
-## 
-
-
-
-## 
-
-
-
-## 
-
-## 
-
-
-
-
-
 > ijkplayer  基于ffmpeg的移动平台视频播放器     [**:b:站 Github**](https://github.com/bilibili/ijkplayer)
 
 
