@@ -8,7 +8,7 @@
 
 -----
 
-## 语言基础 
+## 语言基础  :star2:
 
 > C/ C++
 
@@ -16,27 +16,77 @@
 > NDK
 
 
-## 网络基础
+> Java
+### 参考资料
+
+* **《Java Concurrency In Practice》** 
+
+* **《深入理解JAVA虚拟机》**
+
+  
+
+
+## 网络基础 
 
 * **现任明教教主 -《*TCP*/*IP详解*卷1:协议》** 
+  * 1.网络通信原理TCP/IP 和 UDP
+  * 2.路由过程详解
+  * 3.socket 通信TCP粘包和拆包
+  * 4.Http 请求过程
 
 
 
-##  Android  Framework
+##  Android  Framework :arrow_up_small: --> [:notebook:](#Framework)
+
+### 参考资料
+
+* **慕课---风语： [剖析Framework 冲击Android高级职位](https://coding.imooc.com/class/chapter/340.html#Anchor)**   (完成)  
+  * 1.系统启动流程
+  * 2.进程间通信机制原理和优缺点
+  * 3.线程间通信方式深入理解
+  * 4.Activity和Service的启动流程
+  * 5.UI体系相关内容，如Vsync机制、surface原理等
+*  **罗升阳 ---《Android系统源代码情景分析 》**
 
 
 
-* **慕课---风语： [剖析Framework 冲击Android高级职位](https://coding.imooc.com/class/chapter/340.html#Anchor)**   (完成)
-* 
+### :question: 知识点
+
+* AMS启动机制和原理分析
+* WMS 键盘消息处理机制
+* Ashmem 匿名共享驱动实现机制
+* 多媒体播放器分析从TinyAlsa到MediaPlayer
 
 
-## Android 音视频直播技术
-
-> FFmpeg
 
 
+## Android 音视频直播技术 
 
-> ijkplayer
+> FFmpeg 
+
+:question:
+
+* 音视频基础原理
+
+* 视频编解码网络传输原理
+
+*  流媒体服务器架构
+
+* AAC音频格式和转换
+
+* H.264编码压缩算法
+
+*  H. 264 视频数据格式解码
+
+* 硬件编解码H. 264 
+
+* FFmpeg 跨平台开发
+
+  
+
+> ijkplayer  基于ffmpeg的移动平台视频播放器     [**:b:站 Github**](https://github.com/bilibili/ijkplayer)
+
+
 
 
 
@@ -46,8 +96,29 @@
 
 
 
-
 ## 人脸识别方向
+
+
+
+## 设计思想
+
+* **《软件构架实践》**
+
+
+
+
+## 思想框架
+* **《金字塔原理》**
+
+  
+
+* **《毛泽东选集》**
+
+  * 《矛盾论》
+  * 《实践论》
+
+
+
 
 
 
