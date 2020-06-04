@@ -47,30 +47,92 @@
   * 4.Activity和Service的启动流程
   * 5.UI体系相关内容，如Vsync机制、surface原理等
 *  **罗升阳 ---《Android系统源代码情景分析 》**
+*  **林学森 --- 《深入理解 Android内核设计思想》**
 
 
 
-### :question: 知识点
+### :heavy_check_mark: 知识点
 
-* AMS启动机制和原理分析
-* WMS 键盘消息处理机制
-* Ashmem 匿名共享驱动实现机制
-* 多媒体播放器分析从TinyAlsa到MediaPlayer
+* 操作系统基础
+  * Android 同步机制
+  * 操作系统内存管理基础
+  * Ashmem匿名共享内存机制实现原理
+* Android 进程/线程的内存优化
+* Android启动原理
+* 组件运行状态管理机制AMS
+* 窗口和界面显示管理器WMS
+* View体系
+* Android音频系统追溯
+* 系统播放器MediaPlayer/AwesomePlayer/NuPlayer
+* OpenGL图像渲染和优化
+* Android安全机制解析
+* Android应用程序编译和打包
+
+
+
+## Android优化进阶 :1st_place_medal:
+
+### 启动优化
+
+### 内存优化
+
+稳定性优化
+
+电量优化
+
+网络优化
+
+应用瘦身
+
+
+
+## Android 音视频直播技术  :video_camera:
+
+
+
+| 流程 | 内容                                              |
+| ---- | ------------------------------------------------- |
+| 采集 | 音频：openSL ES  <br />视频：surfaceTexture、 YUV |
+| 编码 | H264、H265、MediaCodec                            |
+| 传输 | TCP/UDP                                           |
+| 解码 | H264、H265                                        |
+| 渲染 | OpenGL、默认渲染                                  |
+
+
+
+## 
+
+
+
+## 
+
+
+
+## 
+
+
+
+## 
+
+## 
 
 
 
 
-## Android 音视频直播技术 
 
-> FFmpeg 
+> ijkplayer  基于ffmpeg的移动平台视频播放器     [**:b:站 Github**](https://github.com/bilibili/ijkplayer)
 
-### :question:
+
+
+
+
+> FFmpeg    参考使用实例   [:a: FFmpegAndroid](https://github.com/xufuji456/FFmpegAndroid)
+
+### :heavy_check_mark: 知识点
 
 * 音视频基础原理
 
 * 视频编解码网络传输原理
-
-*  流媒体服务器架构
 
 * AAC音频格式和转换
 
@@ -82,15 +144,18 @@
 
 * FFmpeg 跨平台开发
 
-  
-
-> ijkplayer  基于ffmpeg的移动平台视频播放器     [**:b:站 Github**](https://github.com/bilibili/ijkplayer)
-
-
 
 
 
 > webRTC
+
+
+
+## OpenGL  :triangular_flag_on_post:
+
+
+
+
 
 ## 图像处理技术
 
@@ -103,6 +168,7 @@
 ## 设计思想
 
 * **《软件构架实践》**
+* 弗农（美） --《实现领域驱动设计》
 
 
 
@@ -110,11 +176,8 @@
 ## 思想框架
 * **《金字塔原理》**
 
-  
-
 * **《毛泽东选集》**
-
-  * 《矛盾论》
+* 《矛盾论》
   * 《实践论》
 
 
