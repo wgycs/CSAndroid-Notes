@@ -195,7 +195,7 @@ public static ActivityManagerService startService(
 
 ### ServiceManager
 
-<img src="Binder组成机制.png" alt="image-20200516170256944" style="zoom: 50%;" />
+<img src="./image/Binder组成机制.png" style="zoom: 50%;" />
 
 
 
@@ -220,7 +220,7 @@ public static ActivityManagerService startService(
 
 ### Binder通信协议：
 
-<img src="Binder请求协议.png" alt="image-20200516171800637" style="zoom:50%;" />
+<img src="./image/Binder请求协议.png" style="zoom:50%;" />
 
 
 
@@ -242,7 +242,7 @@ public static ActivityManagerService startService(
 
 ### Binder通信传输过程
 
-<img src="Binder分层结构.png" alt="image-20200516171914148" style="zoom:50%;" />
+<img src="./image/Binder分层结构.png" style="zoom:50%;" />
 
 
 
@@ -264,7 +264,7 @@ Looper
 
 
 
-<img src="E:/NoteBook/Framework分析/管道使用方式.png" alt="image-20200516170820519" style="zoom:50%;" />
+<img src="./image/管道使用方式.png"  style="zoom:50%;" />
 
 
 

@@ -8,13 +8,13 @@ UI刷新的大致流程，应用和SurfaceFlinger的通信过程？
 
 
 
-<img src="./Vsync原理.png" alt="image-20200513212542557" style="zoom:50%;" />
+<img src="./image/Vsync原理.png"   style="zoom:50%;" />
 
 
 
 
 
-<img src="屏幕双缓冲示意图.png" alt="image-20200516135956866" style="zoom:50%;" />
+<img src="./image/屏幕双缓冲示意图.png"  style="zoom:50%;" />
 
 ### UI绘制流程
 
@@ -38,7 +38,7 @@ UI刷新的大致流程，应用和SurfaceFlinger的通信过程？
 
 
 
-<img src="Vsync信号分发原理.png" alt="image-20200516160137149" style="zoom:50%;" />
+<img src="./image/Vsync信号分发原理.png" style="zoom:50%;" />
 
 
 
@@ -80,7 +80,7 @@ void MessageQueue::setEventThread(android::EventThread* eventThread,
 
 
 
-<img src="Vsync事件分发流程.png" alt="image-20200516162343098" style="zoom:50%;" />
+<img src="./image/Vsync事件分发流程.png" style="zoom:50%;" />
 
 
 

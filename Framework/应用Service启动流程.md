@@ -6,7 +6,7 @@
 2. Service启动过程中主要流程有哪些？
 3.  启动过程有哪些参与者，通信过程是怎么样的？
 
-<img src="Service启动过程.png" alt="image-20200528210015418" style="zoom:50%;" />
+<img src="./image/Service启动过程.png" style="zoom:50%;" />
 
 
 

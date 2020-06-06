@@ -6,7 +6,7 @@ Client  -- 序列化  --> 进程间通信机制  ---> 反序列化  --> Server
 
 要求： 性能好、 使用方便、 安全
 
-<img src="一般进程通信流程.png" alt="image-20200516170555169" style="zoom:50%;" />
+<img src="./image/一般进程通信流程.png" style="zoom:50%;" />
 
 ##  Binder
 
@@ -15,7 +15,7 @@ Client  -- 序列化  --> 进程间通信机制  ---> 反序列化  --> Server
 3. 安全，在内核态中添加安全认证识别机制
 4. 组成：  ServiceManager 、 Binder驱动 、Client 、 Services
 
-<img src="Binder组成机制.png" alt="image-20200516170256944" style="zoom: 50%;" />
+<img src="./image/Binder组成机制.png" style="zoom: 50%;" />
 
 
 
@@ -23,7 +23,7 @@ Client  -- 序列化  --> 进程间通信机制  ---> 反序列化  --> Server
 
 
 
-<img src="Binder分层结构.png" alt="image-20200516171914148" style="zoom:50%;" />
+<img src="./image/Binder分层结构.png"  style="zoom:50%;" />
 
 
 
@@ -47,7 +47,7 @@ ServiceMnager 是DNS解析。
 
 Binder协议是有确认机制的，类似TCP协议：
 
-<img src="Binder请求协议.png" alt="image-20200516171800637" style="zoom:50%;" />
+<img src="./image/Binder请求协议.png"  style="zoom:50%;" />
 
 
 
@@ -69,7 +69,7 @@ Looper
 
 
 
-<img src="管道使用方式.png" alt="image-20200516170820519" style="zoom:50%;" />
+<img src="./image/管道使用方式.png"   style="zoom:50%;" />
 
 
 
