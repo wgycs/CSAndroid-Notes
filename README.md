@@ -109,6 +109,14 @@
 
 
 
+
+
+> [google --  ExoPlayer](https://github.com/google/ExoPlayer)
+>
+> ExoPlayer is an application level media player for Android.  ExoPlayer supports features not currently supported by Android’s MediaPlayer API, including DASH and SmoothStreaming adaptive playbacks.
+
+
+
 > FFmpeg    参考使用实例   [:a: FFmpegAndroid](https://github.com/xufuji456/FFmpegAndroid)
 
 ### :heavy_check_mark: 知识点
