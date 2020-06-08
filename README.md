@@ -12,40 +12,38 @@
 
 ### :heavy_check_mark: 知识点：
 
-
-
 > C/ C++
-
-
-
-
 
 
 > NDK
 
 * JNI 注册流程
 * 动态注册和静态注册方式
-* 
 
 
 > Java
-### 
-
 * 并发基础
 
 * 线程如何安全的停止保证代码的完整性
-* 
 
-
-
-### 参考资料
+### 参考资料:books:
 
 * **《Java Concurrency In Practice》** 
 * **《深入理解JAVA虚拟机》**
 
 
 
+## 算法基础
 
+* 常用算法思想总结 - 
+
+
+
+### 参考资料
+
+* [Cyc2018 整理的算法笔记](https://cyc2018.github.io/CS-Notes/#/notes/算法 - 目录1)
+
+* 《剑指Offer》
 
 
 ## 网络基础 
@@ -60,7 +58,7 @@
 
 ##  Android  Framework :arrow_up_small: 
 
-### 参考资料
+### 参考资料 :books:
 
 * **慕课---风语： [剖析Framework 冲击Android高级职位](https://coding.imooc.com/class/chapter/340.html#Anchor)**   (完成)   --> [:notebook:](#Framework)
   * [1.系统启动流程 :heavy_check_mark:](./Framework/Android启动机制汇总与对比.md)
@@ -80,17 +78,32 @@
   * Android 同步机制
   * 操作系统内存管理基础
   * Ashmem匿名共享内存机制实现原理
+  
 * Android 进程/线程的内存优化
-* Android启动原理
+
+* [Android启动原理  :heavy_check_mark:](./Framework/系统启动.md)
+
 * 组件运行状态管理机制AMS
-* 窗口和界面显示管理器WMS
-* View体系
-  * [SurfaceFlinger原理代码分析详解](./Framework/Android系统显示原理-SurfaceFlinger.md) :heavy_check_mark:
+
+* GUI系统
+  
+  * [渲染管理器 -- SurfaceFlinger原理代码分析详解](./Framework/Android系统显示原理-SurfaceFlinger.md) :heavy_check_mark:
+  * 窗口管理器 -- WindowManagerService分析
+  * View 框架分析
+  * 输入事件管理组件   InputManagerService 
+  
+  
+  
 * Android音频系统追溯
+
 * 系统播放器MediaPlayer/AwesomePlayer/NuPlayer
+
 * OpenGL图像渲染和优化
+
 * Android安全机制解析
+
 * Android应用程序编译和打包
+
 *  [相机架构组件    :camera:  :heavy_check_mark:](https://source.android.google.cn/devices/camera?hl=zh_cn)
 
 
@@ -99,19 +112,41 @@
 
 ### 绘制优化
 
-
+1.  出现卡顿的原因
+2.  性能分析工具
+3.  优化方面和措施- 布局/绘制/刷新/动画/启动优化措施
+4.  监控方案
 
 ### 内存优化
 
-存储优化
+1.  内存管理机制
+2.  内存分析工具
+3. 优化方式总结
 
-稳定性优化
+### 存储优化
 
-耗电优化
+1. 常用存储方式适用场景  sharedPreference/SQLite/File/ContentProvider
+2. 优化方案总结
+
+### 稳定性优化
+
+1. Crash检测手段  Java/ Native
+2. 日志上报和分析
+3. ANR疑难问题分析
+4. 流程优化措施 
+
+### 耗电优化
+
+1. 检测工具
+2. 优化方案
+
+
 
 网络优化
 
 应用瘦身
+
+
 
 
 
@@ -133,11 +168,10 @@
 
 
 
-
-
-> [google --  ExoPlayer](https://github.com/google/ExoPlayer)
+ 
+>[google --  ExoPlayer :play_or_pause_button:](https://github.com/google/ExoPlayer)
 >
-> ExoPlayer is an application level media player for Android.  ExoPlayer supports features not currently supported by Android’s MediaPlayer API, including DASH and SmoothStreaming adaptive playbacks.
+>ExoPlayer is an application level media player for Android.  ExoPlayer supports features not currently supported by Android’s MediaPlayer API, including DASH and SmoothStreaming adaptive playbacks.
 
 
 
@@ -194,7 +228,9 @@
 * **《金字塔原理》**
 
 * **《毛泽东选集》**
-* 《矛盾论》
+
+  * 《矛盾论》
+
   * 《实践论》
 
 
