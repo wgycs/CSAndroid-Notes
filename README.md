@@ -41,11 +41,12 @@
 ### 参考资料
 
 * **慕课---风语： [剖析Framework 冲击Android高级职位](https://coding.imooc.com/class/chapter/340.html#Anchor)**   (完成)   --> [:notebook:](#Framework)
-  * 1.系统启动流程
-  * 2.进程间通信机制原理和优缺点
-  * 3.线程间通信方式深入理解
-  * 4.Activity和Service的启动流程
-  * 5.UI体系相关内容，如Vsync机制、surface原理等
+  * [1.系统启动流程 :heavy_check_mark:](./Framework/Android启动机制汇总与对比.md)
+  * [2.进程间通信机制原理和优缺点 :heavy_check_mark:](./Framework/IPC通信的方式汇总.md)
+  * 3.线程间通信方式深入理解 
+  * [4.Activity和Service的启动流程 :heavy_check_mark:](./Framework/Activity启动流程.md)    
+  * [5. Activity 显示原理源码分析 :heavy_check_mark:](./Framework/Activity的显示原理.md)
+  * 5.UI体系相关内容，[Vsync机制](./Framework/Android系统显示原理-SurfaceFlinger.md)、surface原理等 
 *  **罗升阳 ---《Android系统源代码情景分析 》**
 *  **林学森 --- 《深入理解 Android内核设计思想》**
 
@@ -62,12 +63,13 @@
 * 组件运行状态管理机制AMS
 * 窗口和界面显示管理器WMS
 * View体系
+  * [SurfaceFlinger原理代码分析详解](./Framework/Android系统显示原理-SurfaceFlinger.md) :heavy_check_mark:
 * Android音频系统追溯
 * 系统播放器MediaPlayer/AwesomePlayer/NuPlayer
 * OpenGL图像渲染和优化
 * Android安全机制解析
 * Android应用程序编译和打包
-*  [相机架构组件:camera:](https://source.android.google.cn/devices/camera?hl=zh_cn)
+*  [相机架构组件    :camera:  :heavy_check_mark:](https://source.android.google.cn/devices/camera?hl=zh_cn)
 
 
 
@@ -104,8 +106,6 @@
 
 
 > ijkplayer  基于ffmpeg的移动平台视频播放器     [**:b:站 Github**](https://github.com/bilibili/ijkplayer)
-
-
 
 
 

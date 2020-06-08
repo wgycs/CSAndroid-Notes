@@ -22,7 +22,7 @@ Surface原理    Surface/ SurfaceFlinger
 
 
 
-<img src="Activity的显示原理.png" alt="image-20200513213944396" style="zoom:50%;" />
+<img src="./image/Activity的显示原理.png" alt="image-20200513213944396" style="zoom:50%;" />
 
 
 

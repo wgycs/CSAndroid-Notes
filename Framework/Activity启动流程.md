@@ -19,7 +19,7 @@ attach  Context  ---->  生命周期回调。
 
 
 
-<img src="./Activity启动图1.png" alt="Activity启动图1" style="zoom: 50%;" />
+<img src="./image/Activity启动图1.png" alt="Activity启动图1" style="zoom: 50%;" />
 
 
 

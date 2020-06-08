@@ -183,7 +183,55 @@ void MessageQueue::Handler::handleMessage(const Message& message) {
 
 
 
-## 4. SurfaceFlinger 核心处理流程 ---->//handleMessageRefresh();
+## 4. 应用端VSync 信号的订阅和分发
+
+订阅关系示意图：
+
+![多APP和SurfaceFlinger连接示意图](image/多APP和SurfaceFlinger连接示意图.png)
+
+
+
+
+
+1. 对于VSync信号感兴趣的APP （ Choreography 后面会分析 ）会和SurfaceFlinger建立一个连接`createDisplayEventConnection()`
+
+2. 交由 `mScheduler`进行处理，并在MessageQueue中EventThread对象创建绑定关系
+
+   ```c++
+   mEventThread = eventThread;
+   mEvents = eventThread->createEventConnection(std::move(resyncCallback));
+   mEvents->stealReceiveChannel(&mEventTube);
+   mLooper->addFd(mEventTube.getFd(), 0, Looper::EVENT_INPUT, MessageQueue::cb_eventReceiver,this);
+   ```
+
+3. 分发消息给对应应用进程   // gui::BitTube详细的实现
+
+   ```c++
+   int MessageQueue::cb_eventReceiver(int fd, int events, void* data) {
+       MessageQueue* queue = reinterpret_cast<MessageQueue*>(data);
+       return queue->eventReceiver(fd, events);
+   }
+   
+   int MessageQueue::eventReceiver(int /*fd*/, int /*events*/) {
+       ssize_t n;
+       DisplayEventReceiver::Event buffer[8];
+       while ((n = DisplayEventReceiver::getEvents(&mEventTube, buffer, 8)) > 0) {
+           for (int i = 0; i < n; i++) {
+               if (buffer[i].header.type == DisplayEventReceiver::DISPLAY_EVENT_VSYNC) {
+                   mHandler->dispatchInvalidate();
+                   break;
+               }
+           }
+       }
+       return 1;
+   }
+   ```
+
+   
+
+
+
+## 5. SurfaceFlinger 核心处理流程 ---->//handleMessageRefresh();
 
 此时进入SurfaceFlinger的核心功能流程，在此先介绍下核心函数。
 
@@ -232,6 +280,52 @@ void SurfaceFlinger::onMessageReceived(int32_t what) NO_THREAD_SAFETY_ANALYSIS {
 
 
 
+
+## handleMessageRefresh 核心流程内容
+
+```c++
+void SurfaceFlinger::handleMessageRefresh() {
+    ATRACE_CALL();
+
+    mRefreshPending = false;
+
+    const bool repaintEverything = mRepaintEverything.exchange(false);
+    
+    // 1. 合成前准备
+    preComposition();
+    // 2. 重新构建Layout 堆栈  z-order
+    rebuildLayerStacks();
+    
+    calculateWorkingSet();
+    for (const auto& [token, display] : mDisplays) {
+        beginFrame(display);
+        prepareFrame(display);
+        doDebugFlashRegions(display, repaintEverything);
+        // 3. 进行合成  可交给OpenGL ES 或  HWC模块
+        doComposition(display, repaintEverything);
+    }
+
+    logLayerStats();
+
+    postFrame();
+    postComposition();
+
+    mHadClientComposition = false;
+    mHadDeviceComposition = false;
+    for (const auto& [token, displayDevice] : mDisplays) {
+        auto display = displayDevice->getCompositionDisplay();
+        const auto displayId = display->getId();
+        mHadClientComposition =
+                mHadClientComposition || getHwComposer().hasClientComposition(displayId);
+        mHadDeviceComposition =
+                mHadDeviceComposition || getHwComposer().hasDeviceComposition(displayId);
+    }
+
+    mVsyncModulator.onRefreshed(mHadClientComposition);
+
+    mLayersWithQueuedFrames.clear();
+}
+```
 
 
 
