@@ -41,7 +41,7 @@
 
 ### 参考资料
 
-* [Cyc2018 整理的算法笔记](https://cyc2018.github.io/CS-Notes/#/notes/算法 - 目录1)
+*  [Cyc2018 整理的算法笔记 :blue_book:](https://cyc2018.github.io/CS-Notes/#/notes/算法)
 
 * 《剑指Offer》
 
@@ -168,7 +168,7 @@
 
 
 
- 
+
 >[google --  ExoPlayer :play_or_pause_button:](https://github.com/google/ExoPlayer)
 >
 >ExoPlayer is an application level media player for Android.  ExoPlayer supports features not currently supported by Android’s MediaPlayer API, including DASH and SmoothStreaming adaptive playbacks.
