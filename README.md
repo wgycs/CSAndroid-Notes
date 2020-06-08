@@ -10,20 +10,42 @@
 
 ## 语言基础  :star2:
 
+### :heavy_check_mark: 知识点：
+
+
+
 > C/ C++
+
+
+
+
 
 
 > NDK
 
+* JNI 注册流程
+* 动态注册和静态注册方式
+* 
+
 
 > Java
+### 
+
+* 并发基础
+
+* 线程如何安全的停止保证代码的完整性
+* 
+
+
+
 ### 参考资料
 
 * **《Java Concurrency In Practice》** 
-
 * **《深入理解JAVA虚拟机》**
 
-  
+
+
+
 
 
 ## 网络基础 
@@ -116,6 +138,8 @@
 > [google --  ExoPlayer](https://github.com/google/ExoPlayer)
 >
 > ExoPlayer is an application level media player for Android.  ExoPlayer supports features not currently supported by Android’s MediaPlayer API, including DASH and SmoothStreaming adaptive playbacks.
+
+
 
 
 
