@@ -54,7 +54,7 @@ Android 4.1 版本进行的UI流畅性优化， 重构了Android显示系统。�
 
 
 
-SurfaceFlinger 接受缓冲区，对它们进行合成，然后发送到屏幕。WindowManager 为 SurfaceFlinger 提供缓冲区和窗口元数据，而 SurfaceFlinger 可使用这些信息将 Surface 合成到屏幕。
+SurfaceFlinger 接受缓冲区，对它们进行合成，然后发送到屏幕。WindowManager 为 SurfaceFlinger 提供缓冲区和窗口元数据，而 SurfaceFlinger 可使用这些信息将 Surface 合成到屏幕。  可以典型的生产者消费者模型。
 
 
 
@@ -179,7 +179,7 @@ void MessageQueue::Handler::handleMessage(const Message& message) {
 
 1. VSync信号由HWC2 产生，并发送到SurfaceFlinger的onVsyncReceived方法
 2. 由EventThread线程对Vsync信号进行入队操作
-3. HandlerThread 在收到信息待处理的消息后，调用mFlinger->onMessageReceived(）
+3. HandlerThread 在收到待处理的消息后，调用mFlinger->onMessageReceived(）
 
 
 
@@ -281,7 +281,7 @@ void SurfaceFlinger::onMessageReceived(int32_t what) NO_THREAD_SAFETY_ANALYSIS {
 
 
 
-## handleMessageRefresh 核心流程内容
+## handleMessageRefresh 绘制和叠加的核心流程内容
 
 ```c++
 void SurfaceFlinger::handleMessageRefresh() {
@@ -293,7 +293,9 @@ void SurfaceFlinger::handleMessageRefresh() {
     
     // 1. 合成前准备
     preComposition();
-    // 2. 重新构建Layout 堆栈  z-order
+    
+    
+    // 2. 重新构建Layout 堆栈 ,按照Layout 的 z-order排序
     rebuildLayerStacks();
     
     calculateWorkingSet();
@@ -302,12 +304,18 @@ void SurfaceFlinger::handleMessageRefresh() {
         prepareFrame(display);
         doDebugFlashRegions(display, repaintEverything);
         // 3. 进行合成  可交给OpenGL ES 或  HWC模块
+        // 最终是调用了 doComposeSurfaces 完成渲染
+        // ---> doComposeSurfaces();
+        // renderEngine.drawLayers(clientCompositionDisplay, clientCompositionLayers,buf->getNativeBuffer(), true, std::move(fd),readyFence);
         doComposition(display, repaintEverything);
     }
 
     logLayerStats();
 
     postFrame();
+    // 
+    // ---> getRenderEngine().genTextures(refillCount, mTexturePool.data() + offset);
+    // 4. 在物理屏幕渲染显示
     postComposition();
 
     mHadClientComposition = false;
@@ -329,7 +337,7 @@ void SurfaceFlinger::handleMessageRefresh() {
 
 
 
-
+多处看到有renderEngine的出现，实际上调用了  `gl::GLESRenderEngine ---> GLESRenderEngine.h` 。
 
 
 
