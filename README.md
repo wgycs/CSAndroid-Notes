@@ -74,10 +74,11 @@
 
 ### :heavy_check_mark: 知识点
 
-* 操作系统基础
-  * Android 同步机制
-  * 操作系统内存管理基础
+* 操作系统基础    
+  * [Android 同步机制 ](./Framework/操作系统基础-通信机制-内存管理基础.md)
+  * [操作系统内存管理基础](./Framework/操作系统基础-通信机制-内存管理基础.md)
   * Ashmem匿名共享内存机制实现原理
+  * Android Low Memory Killer
   
 * Android 进程/线程的内存优化
 
