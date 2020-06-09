@@ -32,3 +32,5 @@ init.rc  -->  init进程 -->  fork + execve  ---> zygote
 1. zygote的作用
 2. 启动步骤
 3. 怎么孵化进程？  fork + execve  /  fork + handle 
+
+典型的Linux  写时拷贝机制的应用
