@@ -75,10 +75,10 @@
 ### :heavy_check_mark: 知识点
 
 * 操作系统基础    
-  * [Android 同步机制 ](./Framework/操作系统基础-通信机制-内存管理基础.md)
-  * [操作系统内存管理基础](./Framework/操作系统基础-通信机制-内存管理基础.md)
+  * [Android 同步机制 :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
+  * [操作系统内存管理基础 :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
   * Ashmem匿名共享内存机制实现原理
-  * Android Low Memory Killer
+  * [Android Low Memory Killer :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
   
 * Android 进程/线程的内存优化
 
@@ -165,7 +165,14 @@
 
 
 
-> ijkplayer  基于ffmpeg的移动平台视频播放器     [**:b:站 Github**](https://github.com/bilibili/ijkplayer)
+### 参考资料 :books:
+
+* **《Android 音视频开发》**
+* 《FFmpeg从入门到精通》
+
+> ijkplayer      [**:b:站 Github**](https://github.com/bilibili/ijkplayer)   
+>
+> 基于ffmpeg的移动平台视频播放器 
 
 
 
@@ -178,7 +185,7 @@
 
 
 
-> FFmpeg    参考使用实例   [:a: FFmpegAndroid](https://github.com/xufuji456/FFmpegAndroid)
+> FFmpeg   参考使用实例   [:a: FFmpegAndroid](https://github.com/xufuji456/FFmpegAndroid)
 
 ### :heavy_check_mark: 知识点
 
