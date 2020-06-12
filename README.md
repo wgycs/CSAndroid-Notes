@@ -4,13 +4,13 @@
 
 这里梳理了Android进阶的笔记，供奋斗在Android道路上的队友参考，我学习历程以及目标方向，其中涉及到的书籍和视频教程的笔记等内容，后续整理将逐步在此更新。
 
-# :star:技能点 
+# :star:  技能点 
 
 -----
 
 ## 语言基础  :star2:
 
-### :heavy_check_mark: 知识点：
+### :heavy_check_mark:   知识点：
 
 > C/ C++
 
@@ -72,7 +72,7 @@
 
 
 
-### :heavy_check_mark: 知识点
+### :heavy_check_mark:   知识点
 
 * 操作系统基础    
   * [Android 同步机制 :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
