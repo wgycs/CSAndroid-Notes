@@ -4,13 +4,13 @@
 
 这里梳理了Android进阶的笔记，供奋斗在Android道路上的队友参考，我学习历程以及目标方向，其中涉及到的书籍和视频教程的笔记等内容，后续整理将逐步在此更新。
 
-# :star:  技能点 
+# 技能点 :star:  
 
 -----
 
 ## 语言基础  :star2:
 
-### :heavy_check_mark:   知识点：
+### 知识点 :bookmark_tabs:
 
 > C/ C++
 
@@ -72,7 +72,7 @@
 
 
 
-### :heavy_check_mark:   知识点
+###  知识点 :bookmark_tabs:  
 
 * 操作系统基础    
   * [Android 同步机制 :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
@@ -179,7 +179,7 @@
 
 > FFmpeg   参考使用实例   [:a: FFmpegAndroid](https://github.com/xufuji456/FFmpegAndroid)
 
-### :heavy_check_mark: 知识点
+###  知识点 :bookmark_tabs:
 
 * 音视频基础原理
 
@@ -238,7 +238,7 @@
 
 
 
-# :black_nib:笔记 
+# 笔记  :black_nib:
 
 ----
 
