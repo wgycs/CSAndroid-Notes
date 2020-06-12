@@ -79,13 +79,9 @@
   * [操作系统内存管理基础 :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
   * Ashmem匿名共享内存机制实现原理
   * [Android Low Memory Killer :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
-  
 * Android 进程/线程的内存优化
-
 * [Android启动原理  :heavy_check_mark:](./Framework/系统启动.md)
-
 * 组件运行状态管理机制AMS
-
 * GUI系统
   
   * [渲染管理器 -- SurfaceFlinger原理代码分析详解](./Framework/Android系统显示原理-SurfaceFlinger.md) :heavy_check_mark:
@@ -93,18 +89,14 @@
   * View 框架分析
   * 输入事件管理组件   InputManagerService 
   
-  
-  
+* PackageMangerService原理
+  * 应用包管理
+  * scheme原理
 * Android音频系统追溯
-
 * 系统播放器MediaPlayer/AwesomePlayer/NuPlayer
-
 * OpenGL图像渲染和优化
-
 * Android安全机制解析
-
 * Android应用程序编译和打包
-
 *  [相机架构组件    :camera:  :heavy_check_mark:](https://source.android.google.cn/devices/camera?hl=zh_cn)
 
 
