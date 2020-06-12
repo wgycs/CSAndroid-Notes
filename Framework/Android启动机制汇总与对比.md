@@ -40,6 +40,7 @@ if(pid == fork() < 0){
     execve()  
         //--> 调用则独立资源
         // 不调用则共享 父进程资源
+        // Copy On Write  写时复制技术
 } else {
     // parent process
 }
