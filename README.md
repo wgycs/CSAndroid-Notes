@@ -28,7 +28,7 @@
 
 ### 参考资料:books:
 
-* **《Java Concurrency In Practice》** 
+* **《Java Concurrency In Practice》**  
 * **《深入理解JAVA虚拟机》**
 
 
@@ -103,12 +103,14 @@
 
 ## Android优化进阶 :1st_place_medal:
 
-### 绘制优化
+### [绘制优化  :heavy_check_mark: ](./应用优化/卡顿优化.md)  
 
 1.  出现卡顿的原因
 2.  性能分析工具
 3.  优化方面和措施- 布局/绘制/刷新/动画/启动优化措施
 4.  监控方案
+
+### [启动优化 :heavy_check_mark:](./应用优化/启动优化.md)
 
 ### 内存优化
 
