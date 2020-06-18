@@ -77,7 +77,7 @@
 * 操作系统基础    
   * [Android 同步机制 :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
   * [操作系统内存管理基础 :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
-  * Ashmem匿名共享内存机制实现原理
+  * [Ashmem匿名共享内存机制实现原理](./Framework/Ashmem匿名共享内存.md)
   * [Android Low Memory Killer :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
 * Android 进程/线程的内存优化
 * [Android启动原理  :heavy_check_mark:](./Framework/系统启动.md)
