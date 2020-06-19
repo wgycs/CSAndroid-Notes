@@ -55,6 +55,14 @@ static const struct file_operations ashmem_fops = {
 
 
 
+```C
+
+```
+
+
+
+
+
 ### 2. 内存的释放
 ```c
 //用于扫描释放需要释放的对象
