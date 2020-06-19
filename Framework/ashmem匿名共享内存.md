@@ -27,7 +27,31 @@ static int __init ashmem_init(void) {
 怎么实现进程间通信的？
 ashmem扮演什么角色？
 
+注册杂项设备的时候，注册了这么一个处理对象。定义了驱动名称、设备号以及 一个处理函数指针结构体ashmem_fops；
 
+```c
+static struct miscdevice ashmem_misc = {
+	.minor = MISC_DYNAMIC_MINOR,
+	.name = "ashmem",
+	.fops = &ashmem_fops,
+};
+//fops  --->  ashmem_fops
+
+static const struct file_operations ashmem_fops = {
+	.owner = THIS_MODULE,
+	.open = ashmem_open,
+	.release = ashmem_release,
+	.read = ashmem_read,
+	.llseek = ashmem_llseek,
+	.mmap = ashmem_mmap,
+	.unlocked_ioctl = ashmem_ioctl,
+#ifdef CONFIG_COMPAT
+	.compat_ioctl = compat_ashmem_ioctl,
+#endif
+};
+```
+
+其中包括了`open`、`release`基本操作，还包括了读取`mmap`以及`ioctl`操作。
 
 
 
