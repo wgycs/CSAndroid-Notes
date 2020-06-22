@@ -87,7 +87,7 @@
   * [渲染管理器 -- SurfaceFlinger原理代码分析详解](./Framework/Android系统显示原理-SurfaceFlinger.md) :heavy_check_mark:
   * 窗口管理器 -- WindowManagerService分析
   * View 框架分析
-  * 输入事件管理组件   InputManagerService 
+  * 输入事件管理组件   InputManagerService  [事件传递-WMS-IMS ](https://blog.csdn.net/json_it/article/details/100715898)
   
 * PackageMangerService原理
   * 应用包管理
