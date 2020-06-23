@@ -22,6 +22,8 @@
 
 
 > Java
+* 
+* Java虚拟机原理
 * [并发基础](./语言基础/java并发.md)
 * [线程安全](./语言基础/java并发.md)
 * 线程如何安全的停止保证代码的完整性
@@ -87,7 +89,8 @@
   * [渲染管理器 -- SurfaceFlinger原理代码分析详解](./Framework/Android系统显示原理-SurfaceFlinger.md) :heavy_check_mark:
   * 窗口管理器 -- WindowManagerService分析
   * View 框架分析
-  * 输入事件管理组件   InputManagerService  [事件传递-WMS-IMS ](https://blog.csdn.net/json_it/article/details/100715898)
+  * 输入事件管理组件   InputManagerService 
+    *  [事件传递-WMS-IMS参考 ](https://blog.csdn.net/json_it/article/details/100715898)
   
 * PackageMangerService原理
   * 应用包管理
@@ -105,10 +108,10 @@
 
 ### [绘制优化  :heavy_check_mark: ](./应用优化/卡顿优化.md)  
 
-1.  出现卡顿的原因
-2.  性能分析工具
-3.  优化方面和措施- 布局/绘制/刷新/动画/启动优化措施
-4.  监控方案
+1.  **出现卡顿的原因**
+2.  **性能分析工具**
+3.  **优化方面和措施- 布局/绘制/刷新/动画/启动优化措施**
+4.  **监控方案**
 
 ### [启动优化 :heavy_check_mark:](./应用优化/启动优化.md)
 
