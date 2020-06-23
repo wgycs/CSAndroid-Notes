@@ -1,6 +1,6 @@
-### 问题描述：
+### 问题描述
 
-Context 是干什么的？
+Context 是什么的？
 
 有哪些组件有Context? 
 
@@ -18,7 +18,19 @@ Context 是干什么的？
 
 
 
+#### 1. Context是什么？
 
+看源码中的注释讲的非常清楚，不需要过多解释。简单说就是访问Android系统资源的媒介。
+
+```java
+/**
+* Interface to global information about an application environment.  This is
+* an abstract class whose implementation is provided by
+* the Android system.  It allows access to application-specific resources and classes, as well as
+* up-calls for application-level operations such as launching activities,
+* broadcasting and receiving intents, etc.
+*/
+```
 
 
 
