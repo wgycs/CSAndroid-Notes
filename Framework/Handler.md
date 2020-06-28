@@ -12,7 +12,7 @@
 
 
 
-## 线程间通信机制Handler
+## 1. 线程间通信机制Handler
 
 1. Handler 是典型的生产者-消费者模型。是线程之间进行通信的媒介。
 
@@ -58,8 +58,59 @@ public Handler(@Nullable Callback callback, boolean async) {
 
 
 
+消息是怎么封装的？
 
 
 
+```java
+public final class Message implements Parcelable {
+    // 执行等待时长， 在MessageQueue中，以此为依据排序
+    public long when;
+	// 发送的数据
+    /*package*/ Bundle data;
+	// 目标线程的 Handler对象，用于发送 和 处理消息  跨线程
+    /*package*/ Handler target;
+    // Message Pool 消息池，回收和复用Message对象  MAX_POOL_SIZE = 50; 
+    private static Message sPool;
+}
+```
 
-##  Handler组成
+
+
+消息怎么调度的？  Looper.loop()
+
+```java
+/**
+* Run the message queue in this thread. Be sure to call
+* {@link #quit()} to end the loop.
+*/
+public static void loop() {
+    // sThreadLocal.get();
+    final Looper me = myLooper();
+    if (me == null) {
+        throw new RuntimeException("No Looper; Looper.prepare() wasn't called on this thread.");
+    }
+    final MessageQueue queue = me.mQueue;
+
+
+    for (;;) {
+        Message msg = queue.next(); // might block
+        if (msg == null) {
+            // No message indicates that the message queue is quitting.
+            return;
+        }
+        
+        
+    }
+}
+
+// MessageQueue.java
+Message next() {
+        // Return here if the message loop has already quit and been disposed.
+        // This can happen if the application tries to restart a looper after quit
+        // which is not supported.
+
+}
+
+```
+
