@@ -90,6 +90,10 @@ public static void loop() {
     if (me == null) {
         throw new RuntimeException("No Looper; Looper.prepare() wasn't called on this thread.");
     }
+    // 从本地线程的ThreadLocal 中找到Looper对象，  并从其中拿到 MessageQueue
+    // 那这个Looper对象是什么时候放进去的呢？ 没错就是 Looper.prepare()  
+    // sThreadLocal.set(new Looper(quitAllowed));  
+    //  这也就是子线程不调用 prepare 就不能创建Handler、也不能运行Looper.loop()
     final MessageQueue queue = me.mQueue;
 
 
