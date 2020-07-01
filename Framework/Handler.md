@@ -18,8 +18,10 @@
 
 2. 线程之间内存是不共享的，那么怎么完成的线程间通信？
 
-   设计通信机制的思路：
+   
 
+   **设计通信机制的思路**：
+   
    进行消息封装  ---- 拿到目标线程句柄  --- 发送消息 --- 目标线程进行消息调度（优先级、异步、阻塞？）
    
    
@@ -165,3 +167,68 @@ Message next() {
 ```
 
 [nativePollOnce 函数讲解细节 ](https://www.kancloud.cn/alex_wsc/android-deep3/416265)
+
+
+
+
+
+## 2. 三种消息类型
+
+1. 同步消息
+2. 异步消息
+3. 消息屏障
+
+
+
+
+
+## 3. 消息唤醒机制   eventFd
+
+
+
+## 4. 消息屏障的使用场景
+
+Choreography
+
+**ViewRootImpl.java**
+
+```java
+@UnsupportedAppUsage
+void scheduleTraversals() {
+    if (!mTraversalScheduled) {
+        mTraversalScheduled = true;
+        // 设置消息屏障
+        // 这里会返回Token ， 删除的时候会以此为依据进行删除
+        mTraversalBarrier = mHandler.getLooper().getQueue().postSyncBarrier();
+        mChoreographer.postCallback(
+            Choreographer.CALLBACK_TRAVERSAL, mTraversalRunnable, null);
+        if (!mUnbufferedInputDispatch) {
+            scheduleConsumeBatchedInput();
+        }
+        notifyRendererOfFramePending();
+        pokeDrawLockIfNeeded();
+    }
+}
+
+void unscheduleTraversals() {
+        if (mTraversalScheduled) {
+            mTraversalScheduled = false;
+            //  mTraversalBarrier 拿Token 去MessageQueue中删除屏障
+            // 刪除消息屏障
+            mHandler.getLooper().getQueue().removeSyncBarrier(mTraversalBarrier);
+            mChoreographer.removeCallbacks(
+                    Choreographer.CALLBACK_TRAVERSAL, mTraversalRunnable, null);
+        }
+    }
+```
+
+
+
+## 5.Handler中的监控机制设计
+
+
+
+## 6. 消息队列设计优势
+
+
+
