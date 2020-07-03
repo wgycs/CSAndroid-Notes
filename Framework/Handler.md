@@ -215,7 +215,7 @@ private boolean enqueueMessage(@NonNull MessageQueue queue, @NonNull Message msg
 
 好像只有这两种消息类型，消息屏障又是什么？ 准确的说叫同步消息屏障，也就是说只会阻塞同步消息，通常是和异步消息一起使用。
 
-消息屏障又什么特殊吗？
+消息屏障有什么特殊吗？
 
 ```java
 
@@ -314,17 +314,7 @@ private boolean enqueueMessage(@NonNull MessageQueue queue, @NonNull Message msg
 
 
 
-
-
-
-
-
-
-## 3. 消息唤醒机制   eventFd
-
-
-
-## 4. 消息屏障的使用场景
+## 3. 消息屏障的使用场景
 
 Choreography
 
@@ -362,11 +352,23 @@ void unscheduleTraversals() {
 
 
 
-## 5.Handler中的监控机制设计
+
+
+## 4. Handler 是怎么延时的
 
 
 
-## 6. 消息队列设计优势
+
+
+## 5. 消息唤醒机制   eventFd
+
+
+
+## 6.Handler中的监控机制设计
+
+
+
+## 7. 消息队列设计优势
 
 
 
