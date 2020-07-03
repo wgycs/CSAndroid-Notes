@@ -65,7 +65,7 @@
 * **慕课---风语： [剖析Framework 冲击Android高级职位](https://coding.imooc.com/class/chapter/340.html#Anchor)**   (完成)   --> [:notebook:](#Framework)
   * [1.系统启动流程 :heavy_check_mark:](./Framework/Android启动机制汇总与对比.md)
   * [2.进程间通信机制原理和优缺点 :heavy_check_mark:](./Framework/IPC通信的方式汇总.md)
-  * 3.线程间通信方式Handler深入理解 
+  * [3.线程间通信方式Handler深入理解 ](./Framework/Handler.md)
   * [4.Activity和Service的启动流程 :heavy_check_mark:](./Framework/Activity启动流程.md)    
   * [5. Activity 显示原理源码分析 :heavy_check_mark:](./Framework/Activity的显示原理.md)
   * 5.UI体系相关内容，[Vsync机制](./Framework/Android系统显示原理-SurfaceFlinger.md)、surface原理等 
