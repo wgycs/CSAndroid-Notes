@@ -174,9 +174,147 @@ Message next() {
 
 ## 2. 三种消息类型
 
-1. 同步消息
-2. 异步消息
-3. 消息屏障
+1. **同步消息**
+2. **异步消息**
+3. **消息屏障**
+
+
+
+### 同步消息和异步消息
+
+Handler 发送的消息只有`Message`一种，怎么就出现了三种消息类型？
+
+前面分析Handler创建的时候，可以看到最后一个参数是async，这里就注定这个Handler是发送出去同步消息还是异步消息。
+
+```java
+public Handler(@Nullable Callback callback, boolean async) {
+	/// async
+    mAsynchronous = async;
+}
+
+// post 方法最终调用到的MessageQueue的入队方法。在这里设置了Message中一个属性  msg.setAsynchronous(true);
+private boolean enqueueMessage(@NonNull MessageQueue queue, @NonNull Message msg,
+            long uptimeMillis) {
+       // 这里必定会设置Target
+        msg.target = this;
+        msg.workSourceUid = ThreadLocalWorkSource.getUid();
+		// 如果是异步的Handler，发出去的消息Message 就会带有 异步标记
+    	// 这个标记的 就区分出了两种消息， 同步消息和异步消息。 
+        // 什么区别呢？前面调度分析的时候，同步消息会被消息屏障阻塞， 而异步不会。
+        if (mAsynchronous) {
+            msg.setAsynchronous(true);
+      
+        }
+        return queue.enqueueMessage(msg, uptimeMillis);
+    }
+```
+
+
+
+### 消息屏障
+
+好像只有这两种消息类型，消息屏障又是什么？ 准确的说叫同步消息屏障，也就是说只会阻塞同步消息，通常是和异步消息一起使用。
+
+消息屏障又什么特殊吗？
+
+```java
+
+@TestApi
+    public int postSyncBarrier() {
+        return postSyncBarrier(SystemClock.uptimeMillis());
+    }
+
+    private int postSyncBarrier(long when) {
+        // Enqueue a new sync barrier token.
+        // We don't need to wake the queue because the purpose of a barrier is to stall it.
+        synchronized (this) {
+            final int token = mNextBarrierToken++;
+            
+            
+            /// ******注意看这个消息的创建过程
+            // 从消息池中拿到了这个消息对象之后，设置了when、 arg1 就加入到消息队列的单链表中了。
+            // !!! 没设置 target 。  可以对比上面的 代码  msg.target = this;
+            // 什么是消息屏障？  Looper调度的时候，如果发现没有target的消息，那么就是消息屏障了
+            final Message msg = Message.obtain();
+            msg.markInUse();
+            msg.when = when;
+            msg.arg1 = token;
+			// *********
+            
+            Message prev = null;
+            Message p = mMessages;
+            if (when != 0) {
+                // 找到时间合适的那个节点
+                while (p != null && p.when <= when) {
+                    prev = p;
+                    p = p.next;
+                }
+            }
+            /// 加入进去
+            if (prev != null) { // invariant: p == prev.next
+                msg.next = p;
+                prev.next = msg;
+            } else {
+                msg.next = p;
+                mMessages = msg;
+            }
+            // 返回了一个 token  。  实际上就是一个计数
+            // 删除的时候就据此token  
+            return token;
+        }
+    }
+
+```
+
+
+
+删除消息屏障的过程。
+
+```java
+    @TestApi
+    public void removeSyncBarrier(int token) {
+        // Remove a sync barrier token from the queue.
+        // If the queue is no longer stalled by a barrier then wake it.
+        synchronized (this) {
+            Message prev = null;
+            Message p = mMessages;
+            // 找到 消息target为空  arg1 是 token的那个Message对象
+            while (p != null && (p.target != null || p.arg1 != token)) {
+                prev = p;
+                p = p.next;
+            }
+            // 到末尾都没找到那么  就抛出异常了
+            if (p == null) {
+                throw new IllegalStateException("The specified message queue synchronization "
+                        + " barrier token has not been posted or has already been removed.");
+            }
+            
+            // 从节点中删除
+            final boolean needWake;
+            if (prev != null) {
+                prev.next = p.next;
+                needWake = false;
+            } else {
+                mMessages = p.next;
+                needWake = mMessages == null || mMessages.target != null;
+            }
+            
+            // 将删除的节点回收，放入消息池中
+            p.recycleUnchecked();
+
+            // If the loop is quitting then it is already awake.
+            // We can assume mPtr != 0 when mQuitting is false.
+            if (needWake && !mQuitting) {
+                // 有消息需要唤醒 nativePollOnce的阻塞   epoll_wait() 实现
+                nativeWake(mPtr);
+            }
+        }
+    }
+```
+
+
+
+
 
 
 
