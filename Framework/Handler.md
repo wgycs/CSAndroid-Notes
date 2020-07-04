@@ -1,4 +1,4 @@
-## 问题：
+## Handler问题思考？
 
 线程间通信机制是什么？怎么完成线程间通信的？
 
@@ -354,7 +354,97 @@ void unscheduleTraversals() {
 
 
 
-## 4. Handler 是怎么延时的
+## 4. Handler 延时消息的实现
+
+```java
+// 从开始加入消息开始看起
+// Handler 中两种消息延迟的方法
+// 1. 定时执行
+public boolean sendMessageAtTime(@NonNull Message msg, long uptimeMillis) {
+    ...
+    return enqueueMessage(queue, msg, uptimeMillis);
+}
+// 2. 延迟执行
+public final boolean sendMessageDelayed(@NonNull Message msg, long delayMillis) {
+        if (delayMillis < 0) {
+            delayMillis = 0;
+        }
+        return sendMessageAtTime(msg, SystemClock.uptimeMillis() + delayMillis);
+}
+
+
+// uptimeMillis 消息延迟执行的时间点
+public boolean sendMessageAtTime(@NonNull Message msg, long uptimeMillis) {
+        MessageQueue queue = mQueue;
+        if (queue == null) {
+            RuntimeException e = new RuntimeException(
+                    this + " sendMessageAtTime() called with no mQueue");
+            Log.w("Looper", e.getMessage(), e);
+            return false;
+        }
+    	// 在上节三种消息类型 中提到的queueMessage
+        // queue.enqueueMessage 方法(msg, uptimeMillis);
+        // 这里最终调用的是MessageQueue的 enqueueMessage 方法
+        return enqueueMessage(queue, msg, uptimeMillis);
+}
+
+// 至此并没有找到为什么Handler 会延迟处理消息，只是在Message的when中增加了一个时间戳。
+// 那么就只剩消息队列，和消息调度环节了。
+```
+
+
+
+
+
+```java
+boolean enqueueMessage(Message msg, long when) {
+
+            msg.markInUse();
+            msg.when = when;
+            Message p = mMessages;
+            boolean needWake;
+    
+    		//插入队列  两种情况 
+            // 1. 消息队列为空\待插入时间为0\第一条执行的when时间比待插入的时间更长
+            if (p == null || when == 0 || when < p.when) {
+                // New head, wake up the event queue if blocked.
+                //将msg 插入到头部
+                msg.next = p;
+                mMessages = msg;
+                // 插入到头部要唤醒
+                needWake = mBlocked;
+            // 2. 其他情况
+            } else {
+                // Inserted within the middle of the queue.  Usually we don't have to wake
+                // up the event queue unless there is a barrier at the head of the queue
+                // and the message is the earliest asynchronous message in the queue.
+                needWake = mBlocked && p.target == null && msg.isAsynchronous();
+                Message prev;
+                // 找到比当msg 执行时间更晚的消息
+                for (;;) {
+                    prev = p;
+                    p = p.next;
+                    if (p == null || when < p.when) {
+                        break;
+                    }
+                    if (needWake && p.isAsynchronous()) {
+                        needWake = false;
+                    }
+                }
+                // 插入到查找到的消息位置
+                msg.next = p; // invariant: p == prev.next
+                prev.next = msg;
+            }
+
+           	// 非头部不需要唤醒
+    		// We can assume mPtr != 0 because mQuitting is false.
+            if (needWake) {
+                nativeWake(mPtr);
+            }
+        }
+        return true;
+    }
+```
 
 
 
