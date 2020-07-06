@@ -316,11 +316,14 @@ private boolean enqueueMessage(@NonNull MessageQueue queue, @NonNull Message msg
 
 ## 3. 消息屏障的使用场景
 
-Choreography
+在向Choreography订阅了VSync信号接收消息之后，VSync回调会触发重绘操作。
+
+显然，这次界面刷新的优先级最高，因此使用了消息屏障以阻塞消息队列中不重要的同步消息。并创建一个异步刷新，加入到主线程Loop中的MessageQueue队列中。
 
 **ViewRootImpl.java**
 
 ```java
+// Post消息屏障到消息队列
 @UnsupportedAppUsage
 void scheduleTraversals() {
     if (!mTraversalScheduled) {
@@ -338,6 +341,7 @@ void scheduleTraversals() {
     }
 }
 
+// 删除 消息屏障
 void unscheduleTraversals() {
         if (mTraversalScheduled) {
             mTraversalScheduled = false;
@@ -450,15 +454,21 @@ boolean enqueueMessage(Message msg, long when) {
 
 
 
-## 5. 消息唤醒机制   eventFd
+## 5. 消息队列设计优势
 
 
 
-## 6.Handler中的监控机制设计
 
 
 
-## 7. 消息队列设计优势
 
 
+
+
+
+### 思考问题：
+
+消息唤醒机制   eventFd
+
+Handler中的监控机制设计
 
