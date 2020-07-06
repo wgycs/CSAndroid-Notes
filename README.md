@@ -62,15 +62,13 @@
 
 ### 参考资料 :books:
 
-* **慕课---风语： [剖析Framework 冲击Android高级职位](https://coding.imooc.com/class/chapter/340.html#Anchor)**   (完成)   --> [:notebook:](#Framework)
-  * [1.系统启动流程 :heavy_check_mark:](./Framework/Android启动机制汇总与对比.md)
-  * [2.进程间通信机制原理和优缺点 :heavy_check_mark:](./Framework/IPC通信的方式汇总.md)
-  * [3.线程间通信方式Handler深入理解 ](./Framework/Handler.md)
-  * [4.Activity和Service的启动流程 :heavy_check_mark:](./Framework/Activity启动流程.md)    
-  * [5. Activity 显示原理源码分析 :heavy_check_mark:](./Framework/Activity的显示原理.md)
-  * 5.UI体系相关内容，[Vsync机制](./Framework/Android系统显示原理-SurfaceFlinger.md)、surface原理等 
 *  **罗升阳 ---《Android系统源代码情景分析 》**
 *  **林学森 --- 《深入理解 Android内核设计思想》**
+*  **慕课---风语： [剖析Framework 冲击Android高级职位](https://coding.imooc.com/class/chapter/340.html#Anchor)**   (完成)   --> [:notebook:](#Framework)
+
+
+
+* 
 
 
 
@@ -81,6 +79,12 @@
   * [操作系统内存管理基础 :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
   * [Ashmem匿名共享内存机制实现原理](./Framework/Ashmem匿名共享内存.md)
   * [Android Low Memory Killer :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
+  * [系统启动流程 :heavy_check_mark:](./Framework/Android启动机制汇总与对比.md)
+  * [进程间通信机制原理和优缺点 :heavy_check_mark:](./Framework/IPC通信的方式汇总.md)
+  * [线程间通信方式Handler深入理解 :heavy_check_mark: ](./Framework/Handler.md)
+  * [Activity和Service的启动流程 :heavy_check_mark:](./Framework/Activity启动流程.md)    
+  * [ Activity 显示原理源码分析 :heavy_check_mark:](./Framework/Activity的显示原理.md)
+  * UI体系相关内容，[Vsync机制](./Framework/Android系统显示原理-SurfaceFlinger.md)、surface原理等 
 * Android 进程/线程的内存优化
 * [Android启动原理  :heavy_check_mark:](./Framework/系统启动.md)
 * 组件运行状态管理机制AMS
