@@ -151,20 +151,3 @@ pandoc -s --toc FAQ.md -o FAQ.md
 ## Afterword
 
 以上两种方法，我更常用的是 Visual Studio Code 中的 Markdown TOC 扩展，因为操作起来既方便又直观。有需求的小伙伴赶快试一试吧！
-
-**你可能想读**：
- [书单 | 有哪些技术传播从业者必知必看的书籍？](https://link.jianshu.com?t=http://mp.weixin.qq.com/s/Fsw8ULRea_R_7pN6j_yyNQ)
- [有哪些适合技术传播从业者关注的优质博客？](https://link.jianshu.com?t=http://mp.weixin.qq.com/s/X9f2GpJB4HZKnuzTi331qA)
- [Markdown：写技术文档、个人博客和读书笔记都很好用的轻量级标记语言](https://link.jianshu.com?t=http://mp.weixin.qq.com/s/FZYB4DbQZLTABUUUjM2e6Q)
- [技术写作实例解析 | 简洁即是美](https://link.jianshu.com?t=http://mp.weixin.qq.com/s/uBMM_CZ6ZdYz5aEWMZS0Uw)
- [两分钟趣味解读 Technical Writer](https://link.jianshu.com?t=http://mp.weixin.qq.com/s/pJa4RMc6HmWJBorDej3oMw)
- [若脱离理解，直译得再正确又有何意？](https://link.jianshu.com?t=http://mp.weixin.qq.com/s/4TucqWn4QS3IlfQ0v0J9aw)
- [优质译文不应止于正确，还要 Well-Organized](https://link.jianshu.com?t=http://mp.weixin.qq.com/s/7uZNVw60Nkx2hIJioymMlA)
- [写在入职技术型创业公司 PingCAP 一个月之后](https://link.jianshu.com?t=http://mp.weixin.qq.com/s/cAW8gaM7mUKH4uZWW81IcQ)
-
-
-
-作者：Lilian_Lee
-链接：https://www.jianshu.com/p/4721ddd27027
-来源：简书
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
