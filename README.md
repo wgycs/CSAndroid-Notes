@@ -4,59 +4,54 @@
 
 这里梳理了Android进阶的笔记，供奋斗在Android道路上的队友参考，我学习历程以及目标方向，其中涉及到的书籍和视频教程的笔记等内容，后续整理将逐步在此更新。
 
-
-
 [TOC]
 
 
 
-
+----
 
 # 技能点 :star:  
 
------
+# 1. 语言基础  :star2:
 
-## 语言基础  :star2:
+## 知识点 :bookmark_tabs:
 
-### 知识点 :bookmark_tabs:
+### C/ C++
 
-> C/ C++
-
-
-> NDK
+### NDK
 
 * JNI 注册流程
 * 动态注册和静态注册方式
 
+### Java
 
-> Java
 * Java虚拟机原理
   * [JVM与Dalvik/ART 区别与联系](./语言基础/JVM-Dalvik-Art.md)
 * [并发基础](./语言基础/java并发.md)
 * [线程安全](./语言基础/java并发.md)
 * 线程如何安全的停止保证代码的完整性
 
-### 参考资料:books:
+## 参考资料:books:
 
 * **《Java Concurrency In Practice》**  
 * **《深入理解JAVA虚拟机》**
 
 
 
-## 算法基础
+# 2. 算法基础
 
 * 常用算法思想总结 - 
 
 
 
-### 参考资料
+## 参考资料
 
 *  [Cyc2018 整理的算法笔记 :blue_book:](https://cyc2018.github.io/CS-Notes/#/notes/算法)
 
 * 《剑指Offer》
 
 
-## 网络基础 
+# 3. 网络基础 
 
 * **现任明教教主 -《*TCP*/*IP详解*卷1:协议》** 
   * [1.网络通信原理TCP/IP 和 UDP    :heavy_check_mark:](./网络基础/UDP.md)
@@ -66,9 +61,9 @@
 
 
 
-##  Android  Framework :arrow_up_small: 
+#  4. Android  Framework :arrow_up_small: 
 
-### 参考资料 :books:
+## 参考资料 :books:
 
 *  **罗升阳 ---《Android系统源代码情景分析 》**
 *  **林学森 --- 《深入理解 Android内核设计思想》**
@@ -76,91 +71,99 @@
 
 
 
-* 
 
 
+##  知识点 :bookmark_tabs:  
 
-###  知识点 :bookmark_tabs:  
+### 操作系统基础    
 
-* 操作系统基础    
-  * [Android 同步机制 :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
-  * [操作系统内存管理基础 :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
-  * [Ashmem匿名共享内存机制实现原理](./Framework/Ashmem匿名共享内存.md)
-  * [Android Low Memory Killer :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
-  * [系统启动流程 :heavy_check_mark:](./Framework/Android启动机制汇总与对比.md)
-  * [进程间通信机制原理和优缺点 :heavy_check_mark:](./Framework/IPC通信的方式汇总.md)
-  * [线程间通信方式Handler深入理解 :heavy_check_mark: ](./Framework/Handler.md)
-  * [Activity和Service的启动流程 :heavy_check_mark:](./Framework/Activity启动流程.md)    
-  * [ Activity 显示原理源码分析 :heavy_check_mark:](./Framework/Activity的显示原理.md)
-  * UI体系相关内容，[Vsync机制](./Framework/Android系统显示原理-SurfaceFlinger.md)、surface原理等 
+* [Android 同步机制 :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
+* [操作系统内存管理基础 :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
+* [Ashmem匿名共享内存机制实现原理](./Framework/Ashmem匿名共享内存.md)
+* [Android Low Memory Killer :heavy_check_mark:](./Framework/操作系统基础-通信机制-内存管理基础.md)
+* [系统启动流程 :heavy_check_mark:](./Framework/Android启动机制汇总与对比.md)
+* [进程间通信机制原理和优缺点 :heavy_check_mark:](./Framework/IPC通信的方式汇总.md)
+* [线程间通信方式Handler深入理解 :heavy_check_mark: ](./Framework/Handler.md)
+* [Activity和Service的启动流程 :heavy_check_mark:](./Framework/Activity启动流程.md)    
+* [ Activity 显示原理源码分析 :heavy_check_mark:](./Framework/Activity的显示原理.md)
+* UI体系相关内容，[Vsync机制](./Framework/Android系统显示原理-SurfaceFlinger.md)、surface原理等 
+
 * Android 进程/线程的内存优化
 * [Android启动原理  :heavy_check_mark:](./Framework/系统启动.md)
 * 组件运行状态管理机制AMS
-* GUI系统
-  
-  * [渲染管理器 -- SurfaceFlinger原理代码分析详解](./Framework/Android系统显示原理-SurfaceFlinger.md) :heavy_check_mark:
-  * 窗口管理器 -- WindowManagerService分析
-  * View 框架分析
-  * 输入事件管理组件   InputManagerService 
-    *  [事件传递-WMS-IMS参考 ](https://blog.csdn.net/json_it/article/details/100715898)
-  
+
+### GUI系统
+
+* [渲染管理器 -- SurfaceFlinger原理代码分析详解](./Framework/Android系统显示原理-SurfaceFlinger.md) :heavy_check_mark:
+* 窗口管理器 -- WindowManagerService分析
+* View 框架分析
+* 输入事件管理组件   InputManagerService 
+  *  [事件传递-WMS-IMS参考 ](https://blog.csdn.net/json_it/article/details/100715898)
+
 * PackageMangerService原理
   * 应用包管理
   * scheme原理
+
+### 音视频系统
+
 * Android音频系统追溯
 * 系统播放器MediaPlayer/AwesomePlayer/NuPlayer
+* [相机架构组件    :camera:  :heavy_check_mark:](https://source.android.google.cn/devices/camera?hl=zh_cn)
 * OpenGL图像渲染和优化
+
+### 系统安全
+
 * Android安全机制解析
 * Android应用程序编译和打包
-*  [相机架构组件    :camera:  :heavy_check_mark:](https://source.android.google.cn/devices/camera?hl=zh_cn)
+*  
 
 
 
-## Android优化进阶 :1st_place_medal:
+# 5. Android优化进阶 :1st_place_medal:
 
-### [绘制优化  :heavy_check_mark: ](./应用优化/卡顿优化.md)  
+## [绘制优化  :heavy_check_mark: ](./应用优化/卡顿优化.md)  
 
 1.  **出现卡顿的原因**
 2.  **性能分析工具**
 3.  **优化方面和措施- 布局/绘制/刷新/动画/启动优化措施**
 4.  **监控方案**
 
-### [启动优化 :heavy_check_mark:](./应用优化/启动优化.md)
+## [启动优化 :heavy_check_mark:](./应用优化/启动优化.md)
 
-### 内存优化
+## 内存优化
 
 1.  内存管理机制
 2.  内存分析工具
 3. 优化方式总结
 
-### 存储优化
+## 存储优化
 
 1. 常用存储方式适用场景  sharedPreference/SQLite/File/ContentProvider
 2. 优化方案总结
 
-### 稳定性优化
+## 稳定性优化
 
 1. Crash检测手段  Java/ Native
 2. 日志上报和分析
 3. ANR疑难问题分析
 4. 流程优化措施 
 
-### 耗电优化
+## 耗电优化
 
 1. 检测工具
 2. 优化方案
 
 
 
-网络优化
+## 网络优化
 
-应用瘦身
-
-
+## 应用瘦身
 
 
 
-## Android 音视频直播技术  :video_camera:
+
+
+# 6. Android 音视频直播技术  :video_camera:
 
 
 
@@ -174,7 +177,7 @@
 
 
 
-### 参考资料 :books:
+## 参考资料 :books:
 
 * **《Android 音视频开发》**
 * 《FFmpeg从入门到精通》
@@ -198,7 +201,9 @@
 
 > FFmpeg   参考使用实例   [:a: FFmpegAndroid](https://github.com/xufuji456/FFmpegAndroid)
 
-###  知识点 :bookmark_tabs:
+##  知识点 :bookmark_tabs:
+
+### 音视频开发知识
 
 * [音视频基础原理 :heavy_check_mark:](./视频开发/音视频基础知识.md)
 * [常用的系统播放器 MediaPlayer (进行中...)](./视频开发/MediaPlayer.md)
@@ -211,12 +216,11 @@
 
 
 
-
-> webRTC
-
+### webRTC
 
 
-## OpenGL  :triangular_flag_on_post:
+
+### OpenGL  :triangular_flag_on_post:
 
 
 
@@ -237,13 +241,15 @@
 
 
 
+# 7. 思想框架
 
-## 思想框架
+## 思维提效
+
 * **《金字塔原理》**
 
 
 
-### 哲学思想
+## 哲学思想
 
 * **《毛泽东选集》**
   * [《矛盾论》](./思想指导/矛盾论.md)
@@ -252,6 +258,7 @@
 
 * [马克思社会辩证法思维导图  :heavy_check_mark:](./思想指导/马克思社会辩证法.md)
 
+## 管理思想
 
 
 
@@ -259,11 +266,7 @@
 
 
 
-# 笔记  :black_nib:
-
-----
-
-
+# 笔记文件  :black_nib:
 
 ##  网络基础 
 
