@@ -1,4 +1,12 @@
-## 1、 MediaPlayer 状态周期
+## 1、MediaPlayer的使用
+
+
+
+
+
+
+
+## 2、 MediaPlayer 状态周期
 
 ![img](https://upload-images.jianshu.io/upload_images/10190436-784f671f475cbc7c.gif?imageMogr2/auto-orient/strip|imageView2/2/w/665/format/webp)
 
