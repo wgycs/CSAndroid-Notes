@@ -2,7 +2,17 @@
 
 
 
-
+```java
+// 获取surface的句柄
+SurfaceHolder holder = surfaceView.getHolder();
+// surface 创建完成设置句柄到MediaPlayer
+mPlayer = MediaPlayer.create(MainActivity.this,
+        Uri.parse("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"));
+mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+mPlayer.setDisplay(holder);    //设置显示视频显示在SurfaceView上
+// 开始播放
+mPlayer.start();
+```
 
 
 
