@@ -8,7 +8,16 @@ SurfaceHolder holder = surfaceView.getHolder();
 // surface 创建完成设置句柄到MediaPlayer
 mPlayer = MediaPlayer.create(MainActivity.this,
         Uri.parse("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"));
-mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+//原废弃接口 mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+//AudioAttributes是一个封装音频各种属性的类
+AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
+//设置音频流的合适属性
+attrBuilder.setLegacyStreamType(AudioManager.STREAM_MUSIC);
+// 必须在prepare之前调用
+mPlayer.setAudioAttributes(attrBuilder.build());
+
 mPlayer.setDisplay(holder);    //设置显示视频显示在SurfaceView上
 // 开始播放
 mPlayer.start();
