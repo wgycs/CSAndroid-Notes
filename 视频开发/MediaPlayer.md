@@ -361,10 +361,12 @@ static void android_media_MediaExtractor_setDataSource(
     // ---- ↑ 数据转换和获取
     sp<IMediaHTTPService> httpService;
     if (httpServiceBinderObj != NULL) {
+        // 通过Binder机制将httpServiceBinderObj返回给binder
+        //就是根据传进来的Java对象找到对应的C++对象，这里的参数obj,可能会指向两种对象：Binder对象或者BinderProxy对象。
         sp<IBinder> binder = ibinderForJavaObject(env, httpServiceBinderObj);
         httpService = interface_cast<IMediaHTTPService>(binder);
     }
-	// 获取了 Binder对象  和 IMediaHTTPService 接口
+	//extractor 分离容器中的视频track和音频track，
     status_t err = extractor->setDataSource(httpService, path, &headers);
 	
     env->ReleaseStringUTFChars(pathObj, path);
@@ -380,7 +382,7 @@ static void android_media_MediaExtractor_setDataSource(
 }
 ```
 
-
+[ibinderForJavaObject()  与 javaObjectForIBinde() 参考](https://www.cnblogs.com/zhangxinyan/p/3487866.html)
 
 
 
