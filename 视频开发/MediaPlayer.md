@@ -273,7 +273,7 @@ public void setDataSource(@NonNull Context context, @NonNull Uri uri,
     }
 ```
 
-#### 2.2 番外篇
+#### 番外篇
 
 这里是怎么调到native层的呢？ 
 
@@ -323,7 +323,101 @@ static const JNINativeMethod gMethods[] = {
 
 
 
-android_media_MediaExtractor_setDataSource
+#### nativeSetDataSource 的 c++层实现 
+
+android_media_MediaPlayer_setDataSourceAndHeaders
+
+```java
+
+static void
+android_media_MediaPlayer_setDataSourceAndHeaders(
+        JNIEnv *env, jobject thiz, jobject httpServiceBinderObj, jstring path,
+        jobjectArray keys, jobjectArray values) {
+
+    sp<MediaPlayer> mp = getMediaPlayer(env, thiz);
+    if (mp == NULL ) {
+        jniThrowException(env, "java/lang/IllegalStateException", NULL);
+        return;
+    }
+
+    if (path == NULL) {
+        jniThrowException(env, "java/lang/IllegalArgumentException", NULL);
+        return;
+    }
+
+    const char *tmp = env->GetStringUTFChars(path, NULL);
+    if (tmp == NULL) {  // Out of memory
+        return;
+    }
+    ALOGV("setDataSource: path %s", tmp);
+   // ---- ↑ 异常判断
+    String8 pathStr(tmp);
+    env->ReleaseStringUTFChars(path, tmp);
+    tmp = NULL;
+
+    // We build a KeyedVector out of the key and val arrays
+    KeyedVector<String8, String8> headersVector;
+    if (!ConvertKeyValueArraysToKeyedVector(
+            env, keys, values, &headersVector)) {
+        return;
+    }
+
+    // 数据准备和转换
+    sp<IMediaHTTPService> httpService;
+    if (httpServiceBinderObj != NULL) {
+        // 通过Binder机制将httpServiceBinderObj返回给binder
+        //就是根据传进来的Java对象找到对应的C++对象，这里的参数obj,可能会指向两种对象：Binder对象或者BinderProxy对象。
+        sp<IBinder> binder = ibinderForJavaObject(env, httpServiceBinderObj);
+        httpService = interface_cast<IMediaHTTPService>(binder);
+    }
+
+    status_t opStatus =
+        //调用 c++ 层MediaPlayer setDataSource
+        mp->setDataSource(
+                httpService,
+                pathStr,
+                headersVector.size() > 0? &headersVector : NULL);
+
+    process_media_player_call(
+            env, thiz, opStatus, "java/io/IOException",
+            "setDataSource failed." );
+}
+
+```
+
+[ibinderForJavaObject()  与 javaObjectForIBinde() 参考](https://www.cnblogs.com/zhangxinyan/p/3487866.html)
+
+
+
+#### C++ 层MediaPlayer数据初始化
+
+```java
+
+status_t MediaPlayer::setDataSource(
+        const sp<IMediaHTTPService> &httpService,
+        const char *url, const KeyedVector<String8, String8> *headers)
+{
+    ALOGV("setDataSource(%s)", url);
+    status_t err = BAD_VALUE;
+    if (url != NULL) {
+        const sp<IMediaPlayerService> service(getMediaPlayerService());
+        if (service != 0) {
+            sp<IMediaPlayer> player(service->create(this, mAudioSessionId));
+            if ((NO_ERROR != doSetRetransmitEndpoint(player)) ||
+                (NO_ERROR != player->setDataSource(httpService, url, headers))) {
+                player.clear();
+            }
+            err = attachNewPlayer(player);
+        }
+    }
+    return err;
+}
+
+```
+
+
+
+
 
 ```c++
 static void android_media_MediaExtractor_setDataSource(
@@ -382,7 +476,7 @@ static void android_media_MediaExtractor_setDataSource(
 }
 ```
 
-[ibinderForJavaObject()  与 javaObjectForIBinde() 参考](https://www.cnblogs.com/zhangxinyan/p/3487866.html)
+
 
 
 
