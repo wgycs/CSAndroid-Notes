@@ -273,7 +273,7 @@ public void setDataSource(@NonNull Context context, @NonNull Uri uri,
     }
 ```
 
-##### 2.2 番外篇
+#### 2.2 番外篇
 
 这里是怎么调到native层的呢？ 
 
@@ -324,6 +324,63 @@ static const JNINativeMethod gMethods[] = {
 
 
 android_media_MediaExtractor_setDataSource
+
+```c++
+static void android_media_MediaExtractor_setDataSource(
+        JNIEnv *env, jobject thiz,
+        jobject httpServiceBinderObj,
+        jstring pathObj,
+        jobjectArray keysArray,
+        jobjectArray valuesArray) {
+    sp<JMediaExtractor> extractor = getMediaExtractor(env, thiz);
+   // ----
+    if (extractor == NULL) {
+        jniThrowException(env, "java/lang/IllegalStateException", NULL);
+        return;
+    }
+
+    if (pathObj == NULL) {
+        jniThrowException(env, "java/lang/IllegalArgumentException", NULL);
+        return;
+    }
+    
+    // ---- ↑  异常判断
+
+    KeyedVector<String8, String8> headers;
+    if (!ConvertKeyValueArraysToKeyedVector(
+                env, keysArray, valuesArray, &headers)) {
+        return;
+    }
+
+    const char *path = env->GetStringUTFChars(pathObj, NULL);
+
+    if (path == NULL) {
+        return;
+    }
+
+    // ---- ↑ 数据转换和获取
+    sp<IMediaHTTPService> httpService;
+    if (httpServiceBinderObj != NULL) {
+        sp<IBinder> binder = ibinderForJavaObject(env, httpServiceBinderObj);
+        httpService = interface_cast<IMediaHTTPService>(binder);
+    }
+	// 获取了 Binder对象  和 IMediaHTTPService 接口
+    status_t err = extractor->setDataSource(httpService, path, &headers);
+	
+    env->ReleaseStringUTFChars(pathObj, path);
+    path = NULL;
+
+    if (err != OK) {
+        jniThrowException(
+                env,
+                "java/io/IOException",
+                "Failed to instantiate extractor.");
+        return;
+    }
+}
+```
+
+
 
 
 
