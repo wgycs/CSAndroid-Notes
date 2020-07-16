@@ -1,31 +1,59 @@
 ## 1、MediaPlayer的使用
 
+要完成播放动作要做哪些事情？
 
+1. 创建播放器
+2. 将资源设置到MediaPlayer中，资源可以是url、文件、uri等
+3. 设置显示的位置
+4. 设置声音播放
+5. 状态控制，如开始播放、停止、暂停、设置播放状态等
+
+
+
+这也就是我们**使用MediaPlayer**的一般步骤：
 
 ```java
-// 获取surface的句柄
 SurfaceHolder holder = surfaceView.getHolder();
 // surface 创建完成设置句柄到MediaPlayer
 mPlayer = MediaPlayer.create(MainActivity.this,
         Uri.parse("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"));
 
 //原废弃接口 mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
 //AudioAttributes是一个封装音频各种属性的类
 AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
 //设置音频流的合适属性
 attrBuilder.setLegacyStreamType(AudioManager.STREAM_MUSIC);
 // 必须在prepare之前调用
 mPlayer.setAudioAttributes(attrBuilder.build());
-
-mPlayer.setDisplay(holder);    //设置显示视频显示在SurfaceView上
+//设置显示视频显示在SurfaceView上
+mPlayer.setDisplay(holder);    
 // 开始播放
 mPlayer.start();
 ```
 
 
 
+但是**MediaPlayer是怎么工作的**？
+
+要完成播放我们至少有几件事情要做呢？
+
+1.  如果不是一个文件怎么拿到文件？ 比如现在是一个url，怎么进行播放呢？
+2. 拿到文件怎么解码？
+3. 解码出的音频怎么播放？
+4. 解码的帧数据怎么渲染？
+5. 怎么进度控制？
+
+
+
+
+
 ## 2、 MediaPlayer 状态周期
+
+
+
+在分析前面问题之前我们先弄清楚MediaPlayer是怎么创建和状态切换的。
+
+看官方图：
 
 ![img](https://upload-images.jianshu.io/upload_images/10190436-784f671f475cbc7c.gif?imageMogr2/auto-orient/strip|imageView2/2/w/665/format/webp)
 
@@ -39,11 +67,20 @@ mPlayer.start();
 
 1、 MediaPlayer调用`create()`完成实例创建 ，此时处于**Idle** 状态 ， 调用`release()`进入**End** 状态。
 
+2、调用`SetDataSource()`完成播放器初始化，由**Idle**状态转为**Initialized**状态
 
 
-## MediaPlayer实例创建
+
+
+
+
+
+### 2.1 MediaPlayer实例创建
 
 ```java
+// MediaPlayer 提供了一个组合方法，一次性到达就绪（Prepared）状态。 
+// 其实 这也就是我们使用MediaPlayer的流程。
+//  ---> Idle ---> Initialized ---> Prepared   ---> 后面可以启动了
 public static MediaPlayer create(Context context, Uri uri, SurfaceHolder holder,
         AudioAttributes audioAttributes, int audioSessionId) {
 
@@ -66,7 +103,8 @@ public static MediaPlayer create(Context context, Uri uri, SurfaceHolder holder,
             // 设置surface的操纵句柄， 处理其在Canvas上作画的效果和动画、大小、像素等
             mp.setDisplay(holder);
         }
-        // 准备进入Idle 状态
+        // 同步准备的方法 还有一个异步的prepareAsync()   ，进入Prepared 状态
+        // 主要是这里非常耗时 ，同步的方法会一直阻塞到能够播放为止。
         mp.prepare();
         return mp;
     } catch (IOException ex) {
@@ -85,13 +123,13 @@ public static MediaPlayer create(Context context, Uri uri, SurfaceHolder holder,
 
 
 
-// 构造函数
+// 这个函数只完成了准备操作，到达Idle状态。
 public MediaPlayer() {
     super(new AudioAttributes.Builder().build(),
           AudioPlaybackConfiguration.PLAYER_TYPE_JAM_MEDIAPLAYER);
 
     // 在对应线程创建 Handler 
-    // 用于管理状态周期
+    // 用于管理状态周期，优先创建子线程Handler，实在没有就只能用主线程了
     Looper looper;
     if ((looper = Looper.myLooper()) != null) {
         mEventHandler = new EventHandler(this, looper);
@@ -102,7 +140,7 @@ public MediaPlayer() {
     }
 	// 时间数据容器，内部有独立线程 
     // ----
-    // mHandlerThread = new HandlerThread("MediaPlayerMTPEventThread",Process.THREAD_PRIORITY_FOREGROUND);
+    // mHandlerThread = new         HandlerThread("MediaPlayerMTPEventThread",Process.THREAD_PRIORITY_FOREGROUND);
     // ----
     // 用户管理播放进度  并发送消息给mEventHandler;   scheduleNotification -->  mEventHandler
     mTimeProvider = new TimeProvider(this);
@@ -119,3 +157,126 @@ public MediaPlayer() {
     baseRegisterPlayer();
 }
 ```
+
+
+
+### 2.2 MediaPlayer的初始化状态转变
+
+setDataSource有很多重载方法：分别对应了uri、文件、文件描述符、MediaDataSource
+```java
+public void setDataSource(@NonNull Context context, @NonNull Uri uri)
+public void setDataSource(String path)
+public void setDataSource(FileDescriptor fd, long offset, long length)
+public void setDataSource(MediaDataSource dataSource)
+```
+
+后面三种相对比较单一，我们看一个比较典型的uri方式的`setDataSource()`
+
+```java
+    
+/* @param context the Context to use when resolving the Uri
+*  @param uri the Content URI of the data you want to play
+*  @param headers the headers to be sent together with the request for the data
+*                The headers must not include cookies. Instead, use the cookies param.
+*  @param cookies the cookies to be sent together with the request
+* 这几个参数分别是   上下文、uri，跟随请求一起发送的header和cookies
+*/
+public void setDataSource(@NonNull Context context, @NonNull Uri uri,
+            @Nullable Map<String, String> headers, @Nullable List<HttpCookie> cookies)
+            throws IOException {
+       // --- ↓ 
+       if (context == null) {
+            throw new NullPointerException("context param can not be null.");
+        }
+
+        if (uri == null) {
+            throw new NullPointerException("uri param can not be null.");
+        }
+
+        if (cookies != null) {
+            CookieHandler cookieHandler = CookieHandler.getDefault();
+            if (cookieHandler != null && !(cookieHandler instanceof CookieManager)) {
+                throw new IllegalArgumentException("The cookie handler has to be of CookieManager "
+                        + "type when cookies are provided.");
+            }
+        }
+       //---  ↑  上面这些都是异常校验 不说了 
+    
+        // 这里是使用由易到难的策略，去筛检到的这个uri是什么类型  -->
+    
+        // The context and URI usually belong to the calling user. Get a resolver for that user
+        // and strip out the userId from the URI if present.
+        final ContentResolver resolver = context.getContentResolver();
+        final String scheme = uri.getScheme();
+        final String authority = ContentProvider.getAuthorityWithoutUserId(uri.getAuthority());
+		// --> 这里先看是不是普通的文件 scheme ？
+        if (ContentResolver.SCHEME_FILE.equals(scheme)) {
+            setDataSource(uri.getPath());
+            return;
+        // --> 是设置中content类型的资源？
+        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)
+                && Settings.AUTHORITY.equals(authority)) {
+            // Try cached ringtone first since the actual provider may not be
+            // encryption aware, or it may be stored on CE media storage
+            final int type = RingtoneManager.getDefaultType(uri);
+            final Uri cacheUri = RingtoneManager.getCacheForType(type, context.getUserId());
+            final Uri actualUri = RingtoneManager.getActualDefaultRingtoneUri(context, type);
+            if (attemptDataSource(resolver, cacheUri)) {
+                return;
+            } else if (attemptDataSource(resolver, actualUri)) {
+                return;
+            } else {
+                setDataSource(uri.toString(), headers, cookies);
+            }
+    	// ---> 那可能就不是一个已知的类型
+        } else {
+            // Try requested Uri locally first, or fallback to media server
+            // 这里还是先看是不是本地的文件，如果还不是，那么没办法了，只能走下面的方法，向媒体服务器汇报。
+            if (attemptDataSource(resolver, uri)) {
+                return;
+            } else {
+                // --- 其他都无能为力，只能这个来处理了
+                setDataSource(uri.toString(), headers, cookies);  // ----> 最终是下面的实现
+            }
+        }
+    }
+
+
+
+
+@UnsupportedAppUsage
+    private void setDataSource(String path, String[] keys, String[] values,
+            List<HttpCookie> cookies)
+            throws IOException, IllegalArgumentException, SecurityException, IllegalStateException {
+        final Uri uri = Uri.parse(path);
+        final String scheme = uri.getScheme();
+        if ("file".equals(scheme)) {
+            path = uri.getPath();
+        } else if (scheme != null) {
+            // 发现没有文件，只能请求了。 调用的是C++中的方法
+            // handle non-file sources
+            nativeSetDataSource(
+                // 这里很关键  创建通信句柄
+                MediaHTTPService.createHttpServiceBinderIfNecessary(path, cookies),
+                path,
+                keys,
+                values);
+            
+            return;
+        }
+
+        final File file = new File(path);
+        try (FileInputStream is = new FileInputStream(file)) {
+            setDataSource(is.getFD());
+        }
+    }
+```
+
+
+
+
+
+
+
+
+
