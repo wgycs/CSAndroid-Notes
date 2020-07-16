@@ -256,7 +256,8 @@ public void setDataSource(@NonNull Context context, @NonNull Uri uri,
             // 发现没有文件，只能请求了。 调用的是C++中的方法
             // handle non-file sources
             nativeSetDataSource(
-                // 这里很关键  创建通信句柄
+                // 这里很关键  创建和MediaHTTPService通信Binder句柄  // (new MediaHTTPService(cookies)).asBinder()
+                // 后面只能交给媒体服务去处理了
                 MediaHTTPService.createHttpServiceBinderIfNecessary(path, cookies),
                 path,
                 keys,
