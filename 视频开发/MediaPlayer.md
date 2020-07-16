@@ -273,9 +273,57 @@ public void setDataSource(@NonNull Context context, @NonNull Uri uri,
     }
 ```
 
+##### 2.2 番外篇
+
+这里是怎么调到native层的呢？ 
+
+我们看一个关键函数 `JNI_OnLoad()`, 这个函数在动态库被加载的时候调用到。
+
+` System.loadLibrary("lib_media");`
+
+然后会调用runtime的注册函数，registerNativeMethods。 这时就会把native层的函数和java层函数完成一个绑定。
+
+```java
+
+ private native void nativeSetDataSource(
+        IBinder httpServiceBinder, String path, String[] keys, String[] values)
+        throws IOException, IllegalArgumentException, SecurityException, IllegalStateException;
+
+jint JNI_OnLoad(JavaVM* vm, void* /* reserved */)
+{
+     if (register_android_media_MediaPlayer(env) < 0) {
+        ALOGE("ERROR: MediaPlayer native registration failed\n");
+        goto bail;
+    }
+    ...
+}
+
+
+static int register_android_media_MediaPlayer(JNIEnv *env)
+{
+    return AndroidRuntime::registerNativeMethods(env,
+                "android/media/MediaPlayer", gMethods, NELEM(gMethods));
+}
+
+// JNINativeMethod 结构体，对应的分别是
+
+// java 函数名称
+// 函数参数和返回值类型签名  
+// native 层函数指针
+static const JNINativeMethod gMethods[] = {
+    {
+        "nativeSetDataSource",
+        "(Landroid/os/IBinder;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;)V",
+        (void *)android_media_MediaPlayer_setDataSourceAndHeaders
+    }
+    
+    ...
+}
+```
 
 
 
+android_media_MediaExtractor_setDataSource
 
 
 
