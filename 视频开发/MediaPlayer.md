@@ -389,9 +389,20 @@ android_media_MediaPlayer_setDataSourceAndHeaders(
 
 
 
+到这这里还没结束，真正的实现都在MediaPlayer.cpp 中，这里维护了所有调度状态，比如设置完`setDataSource()` 将player状态设置为Initialized。完成MediaPlayerService进行绑定和请求发送，当然这肯定是基于Binder机制的。
+
+```c++
+//MediaPlayer 设置状态为Initialized
+mCurrentState = MEDIA_PLAYER_INITIALIZED;
+//MediaPlayer 获取mediaplayerService。
+binder = sm->getService(String16("media.player"));
+```
+
+
+
 #### C++ 层MediaPlayer数据初始化
 
-```java
+```cpp
 
 status_t MediaPlayer::setDataSource(
         const sp<IMediaHTTPService> &httpService,
@@ -400,10 +411,19 @@ status_t MediaPlayer::setDataSource(
     ALOGV("setDataSource(%s)", url);
     status_t err = BAD_VALUE;
     if (url != NULL) {
+        
+        // 获取MediaPlayerService的服务
         const sp<IMediaPlayerService> service(getMediaPlayerService());
         if (service != 0) {
+            // MediaPlayerService 创建 IMediaPlayer Client对象
             sp<IMediaPlayer> player(service->create(this, mAudioSessionId));
             if ((NO_ERROR != doSetRetransmitEndpoint(player)) ||
+                // 1. 调用MediaPlayerService client 的setDataSource方法
+                // 2. 涉及到 MediaPlayerFactory 创建不同的播放器类型
+                // 3. sm->getService(String16("media.extractor")); 获取音视频分离器 media.extractorextractor 
+                //    分离容器中的视频track和音频track
+                // 4. 绑定对应的 OMX service 和 Codec2 service
+                //
                 (NO_ERROR != player->setDataSource(httpService, url, headers))) {
                 player.clear();
             }
@@ -415,68 +435,9 @@ status_t MediaPlayer::setDataSource(
 
 ```
 
+### 2.3 MediaPlayer 就绪状态
 
-
-
-
-```c++
-static void android_media_MediaExtractor_setDataSource(
-        JNIEnv *env, jobject thiz,
-        jobject httpServiceBinderObj,
-        jstring pathObj,
-        jobjectArray keysArray,
-        jobjectArray valuesArray) {
-    sp<JMediaExtractor> extractor = getMediaExtractor(env, thiz);
-   // ----
-    if (extractor == NULL) {
-        jniThrowException(env, "java/lang/IllegalStateException", NULL);
-        return;
-    }
-
-    if (pathObj == NULL) {
-        jniThrowException(env, "java/lang/IllegalArgumentException", NULL);
-        return;
-    }
-    
-    // ---- ↑  异常判断
-
-    KeyedVector<String8, String8> headers;
-    if (!ConvertKeyValueArraysToKeyedVector(
-                env, keysArray, valuesArray, &headers)) {
-        return;
-    }
-
-    const char *path = env->GetStringUTFChars(pathObj, NULL);
-
-    if (path == NULL) {
-        return;
-    }
-
-    // ---- ↑ 数据转换和获取
-    sp<IMediaHTTPService> httpService;
-    if (httpServiceBinderObj != NULL) {
-        // 通过Binder机制将httpServiceBinderObj返回给binder
-        //就是根据传进来的Java对象找到对应的C++对象，这里的参数obj,可能会指向两种对象：Binder对象或者BinderProxy对象。
-        sp<IBinder> binder = ibinderForJavaObject(env, httpServiceBinderObj);
-        httpService = interface_cast<IMediaHTTPService>(binder);
-    }
-	//extractor 分离容器中的视频track和音频track，
-    status_t err = extractor->setDataSource(httpService, path, &headers);
-	
-    env->ReleaseStringUTFChars(pathObj, path);
-    path = NULL;
-
-    if (err != OK) {
-        jniThrowException(
-                env,
-                "java/io/IOException",
-                "Failed to instantiate extractor.");
-        return;
-    }
-}
-```
-
-
+`prepare()`
 
 
 
