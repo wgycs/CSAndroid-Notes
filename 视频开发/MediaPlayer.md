@@ -435,7 +435,15 @@ status_t MediaPlayer::setDataSource(
 
 ```
 
-### 2.3 MediaPlayer 就绪状态
+
+
+### 2.3 MediaPlayer 设置Surface过程
+
+的
+
+
+
+### 2.4 MediaPlayer 就绪状态
 
 `prepare()`
 
