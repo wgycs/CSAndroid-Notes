@@ -47,7 +47,11 @@ mPlayer.start();
 
 
 
-## 2、 MediaPlayer 状态周期
+
+
+
+
+## 2、 MediaPlayer 状态周期和类图
 
 
 
@@ -68,6 +72,10 @@ mPlayer.start();
 1、 MediaPlayer调用`create()`完成实例创建 ，此时处于**Idle** 状态 ， 调用`release()`进入**End** 状态。
 
 2、调用`SetDataSource()`完成播放器初始化，由**Idle**状态转为**Initialized**状态
+
+
+
+
 
 
 
