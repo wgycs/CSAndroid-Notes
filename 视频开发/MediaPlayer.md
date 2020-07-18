@@ -439,7 +439,80 @@ status_t MediaPlayer::setDataSource(
 
 ### 2.3 MediaPlayer 设置Surface过程
 
-的
+
+
+```java
+// 设置surface句柄    
+public void setDisplay(SurfaceHolder sh) {
+        mSurfaceHolder = sh;
+        Surface surface;
+        if (sh != null) {
+            surface = sh.getSurface();
+        } else {
+            surface = null;
+        }
+        // 调用C++ 的方法、 private native void _setVideoSurface(Surface surface);
+        _setVideoSurface(surface);
+        updateSurfaceScreenOn();
+    }
+```
+
+
+
+```c++
+static void
+android_media_MediaPlayer_setVideoSurface(JNIEnv *env, jobject thiz, jobject jsurface)
+{
+    setVideoSurface(env, thiz, jsurface, true /* mediaPlayerMustBeAlive */);
+}
+
+static void
+setVideoSurface(JNIEnv *env, jobject thiz, jobject jsurface, jboolean mediaPlayerMustBeAlive)
+{
+    // 获取C++ MediaPlayer
+    sp<MediaPlayer> mp = getMediaPlayer(env, thiz);
+    if (mp == NULL) {
+        if (mediaPlayerMustBeAlive) {
+            jniThrowException(env, "java/lang/IllegalStateException", NULL);
+        }
+        return;
+    }
+
+    decVideoSurfaceRef(env, thiz);
+
+    sp<IGraphicBufferProducer> new_st;
+    if (jsurface) {
+        // 获取Java surface队形
+        sp<Surface> surface(android_view_Surface_getSurface(env, jsurface));
+        if (surface != NULL) {
+            // 获取surface对应的buffer
+            new_st = surface->getIGraphicBufferProducer();
+            if (new_st == NULL) {
+                jniThrowException(env, "java/lang/IllegalArgumentException",
+                    "The surface does not have a binding SurfaceTexture!");
+                return;
+            }
+            new_st->incStrong((void*)decVideoSurfaceRef);
+        } else {
+            jniThrowException(env, "java/lang/IllegalArgumentException",
+                    "The surface has been released");
+            return;
+        }
+    }
+
+    env->SetLongField(thiz, fields.surface_texture, (jlong)new_st.get());
+
+    // This will fail if the media player has not been initialized yet. This
+    // can be the case if setDisplay() on MediaPlayer.java has been called
+    // before setDataSource(). The redundant call to setVideoSurfaceTexture()
+    // in prepare/prepareAsync covers for this case.
+    
+    //  设置surfacetexture
+    mp->setVideoSurfaceTexture(new_st);
+}
+
+
+```
 
 
 
