@@ -528,7 +528,7 @@ setVideoSurface(JNIEnv *env, jobject thiz, jobject jsurface, jboolean mediaPlaye
 
 `prepare()`
 
-
+两种准备方式
 
 
 
