@@ -92,10 +92,10 @@
 * [Activity和Service的启动流程 :heavy_check_mark:](./Framework/Activity启动流程.md)    
 * [ Activity 显示原理源码分析 :heavy_check_mark:](./Framework/Activity的显示原理.md)
 * UI体系相关内容，[Vsync机制](./Framework/Android系统显示原理-SurfaceFlinger.md)、surface原理等 
-
 * Android 进程/线程的内存优化
 * [Android启动原理  :heavy_check_mark:](./Framework/系统启动.md)
 * 组件运行状态管理机制AMS
+* [对Context的理解:heavy_check_mark:](./Framework/Context.md)
 
 ### GUI系统
 
