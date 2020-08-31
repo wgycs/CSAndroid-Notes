@@ -1,4 +1,4 @@
-## 1. 关于`黄油计划（Project Buffer）`
+## 1. 关于`（Project Buffer）`
 
 Android 4.1 版本进行的UI流畅性优化， 重构了Android显示系统。其中包括三个核心元素：
 
